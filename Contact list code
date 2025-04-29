@@ -1,0 +1,83 @@
+class Contact:
+    def __init__(self, name, phone, email):
+        self.name = name
+        self.phone = phone
+        self.email = email
+
+    def __str__(self):
+        return f"Name: {self.name}, Phone: {self.phone}, Email: {self.email}"
+
+
+class ContactList:
+    def __init__(self):
+        self.contacts = {}
+
+    def add_contact(self, name, phone, email):
+        if name in self.contacts:
+            print(f"Contact with name '{name}' already exists.")
+        else:
+            self.contacts[name] = Contact(name, phone, email)
+            print(f"Contact '{name}' added successfully.")
+
+    def view_contacts(self):
+        if not self.contacts:
+            print("No contacts available.")
+        else:
+            for contact in self.contacts.values():
+                print(contact)
+
+    def search_contact(self, name):
+        contact = self.contacts.get(name)
+        if contact:
+            print(contact)
+        else:
+            print(f"No contact found with the name '{name}'.")
+
+    def delete_contact(self, name):
+        if name in self.contacts:
+            del self.contacts[name]
+            print(f"Contact '{name}' deleted successfully.")
+        else:
+            print(f"No contact found with the name '{name}'.")
+
+
+def main():
+    contact_list = ContactList()
+
+    while True:
+        print("\nContact List System")
+        print("1. Add Contact")
+        print("2. View Contacts")
+        print("3. Search Contact")
+        print("4. Delete Contact")
+        print("5. Exit")
+
+        choice = input("Choose an option (1-5): ")
+
+        if choice == '1':
+            name = input("Enter contact name: ")
+            phone = input("Enter contact phone: ")
+            email = input("Enter contact email: ")
+            contact_list.add_contact(name, phone, email)
+
+        elif choice == '2':
+            contact_list.view_contacts()
+
+        elif choice == '3':
+            name = input("Enter contact name to search: ")
+            contact_list.search_contact(name)
+
+        elif choice == '4':
+            name = input("Enter contact name to delete: ")
+            contact_list.delete_contact(name)
+
+        elif choice == '5':
+            print("Exiting the Contact List System.")
+            break
+
+        else:
+            print("Invalid choice. Please select a valid option.")
+
+
+if __name__ == "__main__":
+    main()
